@@ -1,0 +1,31 @@
+/* Khung dropdown */
+#product_cat {
+  width: 250px; /* độ rộng */
+  padding: 8px 12px; /* khoảng cách trong */
+  border: 2px solid #5c5c5e; /* viền màu xanh */
+  font-family: "BeVietnam Pro", sans-serif; /* đổi font */
+  border-radius: 6px; /* bo góc */
+  background-color: #fff; /* nền trắng */
+  font-size: 16px; /* cỡ chữ */
+  font-weight: 400;
+  color: #000000; /* màu chữ */
+  cursor: pointer; /* con trỏ dạng tay */
+  transition: all 0.3s ease; /* hiệu ứng mượt */
+}
+
+/* Khi hover vào dropdown */
+#product_cat:hover {
+  border-color: #292829;
+  box-shadow: 0 0 5px rgba(69, 70, 69, 0.5);
+}
+
+/* Các option bên trong */
+
+#product_cat option {
+  font-family: "BeVietnam Pro", sans-serif; /* đổi font */
+  font-size: 16px; /* cỡ chữ */
+  font-weight: 400;
+  color: #000000; /* màu chữ */
+  padding: 6px;
+  font-size: 15px;
+}

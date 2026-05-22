@@ -1,0 +1,445 @@
+.xshop-about-wrap .xshop-section .dashicons{margin-top:-4px;vertical-align:middle}.xshop-about-wrap .nav-tab{font-size:16px}.xshop-about-wrap h1{font-size:2em}.xshop-about-wrap h3{font-size:1.2em}.xshop-about-wrap .wp-badge{background-size:180px auto;background-position:center;height:160px;padding:0;width:190px;border-radius: 10%}.xshop-about-wrap .quick-links a{margin-right:5px}.xshop-about-notice .btn-dismiss{margin-left:20px}.xshop-about-wrap .plugin-list{list-style-position:inside;list-style-type:disc}.about-wrap .feature-section{padding:40px 0 0;overflow:hidden}.about-page-action-required-box{background:#fff;border-left:4px solid #f8800c;display:block;margin-bottom:0;padding:10px 30px;position:relative;-webkit-box-shadow:0 1px 1px 0 rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px 0 rgba(0,0,0,.1);box-shadow:0 1px 1px 0 rgba(0,0,0,.1)}.about-wrap .about-page-required-action-button{position:absolute;top:10px;right:10px;text-decoration:none;color:#b4b9be;border-radius:50%;cursor:pointer}.about-wrap .about-page-required-action-button:hover:before{color:#F44336}.about-wrap .about-page-action-required-box p{display:block;margin-top:0;width:100%;max-width:100%}.about-wrap .feature-section.recommended-plugins .col{background:#fff;padding:20px;margin-top:0}#free_pro .free-pro-table{border-spacing:0;width:100%}#free_pro .free-pro-table th{padding-bottom:20px}#free_pro .free-pro-table td{border-top:1px solid #ccc;padding:20px 0 25px}#free_pro .free-pro-table h3,#free_pro .free-pro-table td p{margin:0}#free_pro .free-pro-table .only-lite,#free_pro .free-pro-table .only-pro{text-align:center;width:15%}#free_pro .free-pro-table .only-lite .dashicons-before:before{color:#00A878}#free_pro .free-pro-table .only-pro .dashicons-before:before{color:#ff3439}#free_pro .free-pro-table .only-lite .dashicons-before:before,#free_pro .free-pro-table .only-pro .dashicons-before:before{font-size:35px;height:35px;width:35px}#free_pro .ti-about-page-text-center{text-align:center}.badge-action-count{padding:0 6px;display:inline-block;background-color:#d54e21;color:#fff;font-size:9px;line-height:17px;font-weight:600;margin:1px 0 0 5px;vertical-align:top;-webkit-border-radius:10px;border-radius:10px;z-index:26}.xshop-about-wrap .badge-action-count{margin-top:5px}
+.about-wrap .three-col .col.plugin_box {
+    min-width: 150px;
+    max-width: 150px;
+    float: left;
+    text-align: center;
+    margin-right: 20px;
+}
+.about-wrap .three-col .col.plugin_box img {
+    margin-bottom: 10px;
+}
+.col.plugin_box .action_bar {
+    margin: 10px 0;
+}
+a.button.button-danger {
+    background: #C82333;
+    border-color: #C82333;
+    color: #fff;
+}
+a.button.button-danger:hover {
+    background: green;
+    border-color: green;
+    color: #fff;
+}
+.about-wrap .feature-section {
+    padding: 40px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+}
+.cupon-code{
+    text-transform: lowercase;
+}
+.col {
+    width: 30%;
+    float: left;
+    margin-right: 3%;
+    margin-bottom: 20px;
+    min-height: 230px;
+}
+@media only screen and (max-width: 780px) {
+    .col {
+        width: 100%;
+        float: left;
+        margin-right: 0;
+        margin-bottom: 20px;
+        min-height: 230px;
+    }
+}
+
+
+
+/* =============================================
+   XShop Pro Notice — White + Animated
+   Primary: #ba7d5c
+   ============================================= */
+
+    /* Entrance animation */
+    @keyframes xshop-slide-in {
+        from { opacity: 0; transform: translateY(-16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Wave hand */
+    @keyframes xshop-wave {
+        0%, 100% { transform: rotate(0deg); }
+        25%       { transform: rotate(22deg); }
+        75%       { transform: rotate(-10deg); }
+    }
+
+    /* Floating rocket */
+    @keyframes xshop-float {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-6px); }
+    }
+
+    /* Pulsing glow on primary button */
+    @keyframes xshop-pulse-glow {
+        0%, 100% { box-shadow: 0 4px 14px rgba(186,125,92,0.45); }
+        50%       { box-shadow: 0 4px 28px rgba(186,125,92,0.75); }
+    }
+
+    /* Shimmer on primary button */
+    @keyframes xshop-shimmer {
+        0%   { left: -75%; }
+        100% { left: 125%; }
+    }
+
+    /* Pulsing border on offer box */
+    @keyframes xshop-border-pulse {
+        0%, 100% { border-color: rgba(186,125,92,0.30); }
+        50%       { border-color: rgba(186,125,92,0.70); }
+    }
+
+    /* Accent bar gradient slide */
+    @keyframes xshop-accent-slide {
+        0%   { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+    }
+
+    /* Arrow bounce */
+    @keyframes xshop-arrow-bounce {
+        0%, 100% { transform: translateX(0); }
+        50%       { transform: translateX(5px); }
+    }
+
+    .xshop-pro-notice {
+        margin: 16px 0 20px;
+        animation: xshop-slide-in 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .xshop-notice-container {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 28px 28px 20px 36px;
+        color: #1e293b;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+        border: 1px solid #f0e8e2;
+    }
+
+    /* Animated left accent bar */
+    .xshop-accent-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        border-radius: 12px 0 0 12px;
+        background: linear-gradient(180deg, #ba7d5c, #e0a882, #ba7d5c, #8c5a3c);
+        background-size: 100% 300%;
+        animation: xshop-accent-slide 3s linear infinite;
+    }
+
+    /* ---- Header ---- */
+    .xshop-notice-header {
+        margin-bottom: 14px;
+    }
+
+    .xshop-notice-title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .xshop-rocket {
+        font-size: 26px;
+        display: inline-block;
+        animation: xshop-float 2.5s ease-in-out infinite;
+        line-height: 1;
+    }
+
+    .xshop-notice-title {
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+        color: #1a1a1a;
+        line-height: 1.3;
+        letter-spacing: -0.3px;
+    }
+
+    .xshop-social-proof {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .xshop-stars {
+        color: #f59e0b;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+
+    /* ---- Description ---- */
+    .xshop-notice-description {
+        font-size: 14px;
+        line-height: 1.65;
+        margin: 0 0 18px;
+        color: #475569;
+    }
+
+    .xshop-notice-description strong {
+        color: #ba7d5c;
+        font-weight: 700;
+    }
+
+    /* ---- Features grid ---- */
+    .xshop-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        gap: 10px;
+        margin: 0 0 20px;
+    }
+
+    .xshop-feature-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fdf8f5;
+        border: 1px solid #f0e8e2;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #3d2b1f;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .xshop-feature-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(186,125,92,0.15);
+    }
+
+    .xshop-feature-icon {
+        font-size: 17px;
+        flex-shrink: 0;
+    }
+
+    /* ---- Offer box ---- */
+    .xshop-offer-box {
+        background: #fff9f6;
+        border: 2px solid rgba(186,125,92,0.35);
+        border-radius: 10px;
+        padding: 18px 20px 14px;
+        margin: 0 0 22px;
+        position: relative;
+        animation: xshop-border-pulse 2.5s ease-in-out infinite;
+    }
+
+    .xshop-offer-badge {
+        position: absolute;
+        top: -11px;
+        left: 18px;
+        background: #dc2626;
+        color: #fff;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+
+    .xshop-offer-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .xshop-offer-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .xshop-discount {
+        font-size: 32px;
+        font-weight: 900;
+        color: #dc2626;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .xshop-offer-sub {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .xshop-coupon {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .xshop-coupon-label {
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+    }
+
+    .xshop-coupon-code {
+        background: #ba7d5c;
+        color: #fff;
+        padding: 7px 16px;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: background 0.25s ease, transform 0.2s ease;
+        user-select: all;
+        border: none;
+    }
+
+    .xshop-coupon-code:hover {
+        background: #8c5a3c;
+        transform: scale(1.06);
+    }
+
+    /* ---- Action buttons ---- */
+    .xshop-notice-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+    }
+
+    .xshop-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 22px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none !important;
+        transition: all 0.25s ease;
+        border: none;
+        cursor: pointer;
+        white-space: nowrap;
+        line-height: 1;
+    }
+
+    /* Primary — with shimmer */
+    .xshop-btn-primary {
+        background: #ba7d5c;
+        color: #fff !important;
+        position: relative;
+        overflow: hidden;
+        animation: xshop-pulse-glow 2.2s ease-in-out infinite;
+    }
+
+    .xshop-btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+        animation: xshop-shimmer 2.5s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .xshop-btn-primary:hover {
+        background: #8c5a3c;
+        transform: translateY(-2px);
+        color: #fff !important;
+    }
+
+    .xshop-btn-arrow {
+        display: inline-block;
+        animation: xshop-arrow-bounce 1.2s ease-in-out infinite;
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    /* Secondary */
+    .xshop-btn-secondary {
+        background: #fff;
+        color: #3d2b1f !important;
+        border: 2px solid #d4b8a8;
+    }
+
+    .xshop-btn-secondary:hover {
+        background: #fdf8f5;
+        border-color: #ba7d5c;
+        color: #ba7d5c !important;
+    }
+
+    /* Dismiss */
+    .xshop-btn-dismiss,
+    button.button.button-info.btnend {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #94a3b8 !important;
+        font-size: 13px !important;
+        padding: 4px 8px !important;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+    }
+
+    .xshop-btn-dismiss:hover,
+    button.button.button-info.btnend:hover {
+        color: #475569 !important;
+    }
+
+    /* Risk-free line */
+    .xshop-risk-free {
+        font-size: 12px;
+        color: #94a3b8;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+        .xshop-notice-container {
+            padding: 22px 16px 18px 24px;
+        }
+
+        .xshop-notice-title {
+            font-size: 18px;
+        }
+
+        .xshop-features-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .xshop-offer-content {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .xshop-notice-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .xshop-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .xshop-features-grid {
+            grid-template-columns: 1fr;
+        }
+    }

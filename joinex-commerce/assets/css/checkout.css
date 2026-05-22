@@ -1,0 +1,833 @@
+/* CSS TOÀN BỘ KHỐI*/
+/* Xóa gutter ngang của row và padding của cột */
+.page-id-4734 .row {
+  --bs-gutter-x: 0 !important;
+}
+
+/* Xóa padding trái/phải của các cột bootstrap bên trong */
+.page-id-4734 .row > [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Xóa padding trái/phải của container ngoài cùng nếu có */
+.page-id-4734 .container.mt-5.mb-5.pt-5.pb-5 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+}
+
+.page-id-4734 .container.mt-5.mb-5.pt-5.pb-5 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Giảm/mất khoảng trắng do các utility class trên trang Thanh toán riêng */
+.page-id-4734 .container.mt-5.mb-5.pt-5.pb-5 {
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* Áp dụng cho container plugin checkout */
+.cc-checkout-container {
+  margin-top: 0 !important;
+  padding-top: 0px !important; /* Ngay đây còn đi tìm ở đâu */
+}
+
+/* Nếu container nằm trong entry-content, giảm khoảng cách giữa header và container */
+.entry-content > .cc-checkout-container:first-child {
+  margin-top: 0 !important;
+  padding-top: 12px !important;
+}
+
+/* Nếu theme thêm margin cho tiêu đề mặc định */
+.page-id-4734 .entry-title {
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Nếu builder (Elementor/Block) thêm padding cho section đầu */
+.page-id-4734 .elementor-section,
+.page-id-4734 .wp-block-group,
+.page-id-4734 .wp-block-cover {
+  padding-top: 8px !important;
+}
+
+/* Giảm khoảng cách trên cùng của nội dung checkout */
+.page-id-4734 .cc-checkout-container {
+  margin-top: 0; /* bỏ khoảng cách */
+  padding-top: 20px; /* giữ khoảng cách nhỏ cho thoáng */
+}
+
+/* Nếu theme thêm margin cho entry-content */
+.page-id-4734 .entry-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.page-id-4734 .entry-title {
+  display: none;
+}
+
+.cc-checkout-container   /* Đây là khối ngoài cùng đây. */ {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0px;
+  box-sizing: border-box;
+}
+/* Tiêu đề chính */
+.cc-main-title {
+  font-family: "Be VietNam Pro", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+/* Tiêu đề phụ */
+.cc-sub-title {
+  font-family: "Be VietNam Pro", sans-serif;
+  font-weight: 450;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555; /* màu nhẹ hơn để phân cấp */
+}
+
+.cc-checkout-wrap {
+  /* background-color: #c5f5d5;*/
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  /* max-width: 1140px; /* giới hạn chiều rộng */
+  margin: 0 auto; /* căn giữa khối */
+  padding: 0px; /* thêm khoảng cách trong */
+  box-sizing: border-box;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Khối bên trái: kích thước cố định, bo góc, đổ bóng nhẹ */
+
+/* Form tổng bên trái. */
+
+.cc-sub-title {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #64748b;
+}
+
+.cc-form {
+  padding: 15px;
+  width: 625px;
+  font-family: "Be VietNam", sans-serif;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Hàng chung */
+.cc-row {
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* Hai cột trên cùng và dropdown cuối */
+.cc-row--two {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Trường chung */
+.cc-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.cc-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+  font-size: 14px;
+}
+.cc-optional {
+  font-weight: 400;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Inputs và selects */
+.cc-field input[type="text"],
+.cc-field input[type="tel"],
+.cc-field input[type="email"],
+.cc-field select {
+  height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* Nếu bạn muốn giới hạn chiều rộng cố định cho khối trái */
+/* Ép khối trái cố định 625px trên desktop, responsive trên mobile */
+
+.cc-left {
+  box-sizing: border-box !important;
+  flex: 0 0 625px !important; /* không co, không giãn, basis = 625px */
+  width: 625px !important; /* đảm bảo width */
+  max-width: 625px !important; /* ngăn stylesheet khác thu nhỏ */
+  min-width: 320px !important; /* vẫn cho mobile an toàn */
+  border-radius: 5px;
+  padding: 0px; /* chỉnh theo nhu cầu */
+  background: transparent;
+  /*box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);*/
+  gap: 50px; /* Các phần tử cách đều nhau là 10 px */
+}
+
+/* Nếu parent có display:flex với gap, đảm bảo không bị ảnh hưởng */
+.cc-checkout-wrap {
+  align-items: flex-start;
+  background-color: #ffffff;
+}
+
+/* Khi màn hình nhỏ, cho khối chiếm 100% */
+@media (max-width: 800px) {
+  .cc-left {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+  }
+}
+
+/* Nút */
+.cc-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: #0b74de;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Responsive: khi màn hình nhỏ, các cột xếp chồng */
+@media (max-width: 800px) {
+  .cc-row--two {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cc-left .cc-form {
+    width: 100%;
+  }
+}
+
+/* Responsive: khi màn hình nhỏ, khối sẽ chiếm 100% */
+@media (max-width: 800px) {
+  .cc-left {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background-color: transparent;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Responsive: khối bên phải màn hình nhỏ, khối sẽ chiếm 100% */
+
+.cc-right {
+  flex: 0 0 480px;
+  background-color: fffffff;
+  border: 1px solid #e5e5e5;
+
+  /* Đây rồi, điểm vấn đề đây rồi */
+
+  /*  padding: 16px;  */
+
+  box-sizing: border-box;
+  width: 480px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cc-cart-item-wrap {
+  padding: 0px 16px 0px 16px;
+}
+
+.cc-right table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cc-right td,
+.cc-right th {
+  padding: 6px 0;
+  vertical-align: top;
+}
+.cc-cart-item {
+  padding: 8px 0;
+}
+.cc-total {
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+@media (max-width: 800px) {
+  .cc-right {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+select {
+  position: relative;
+}
+select option {
+  direction: ltr;
+}
+
+/* Responsive: KHỐI GIỎ HÀNG, THANH TOÁN. */
+
+.cc-right {
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cc-right h3 {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.cc-cart-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cc-cart-img img {
+  border-radius: 5px;
+  width: 90px;
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+.cc-product-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #000;
+}
+
+.cc-cart-info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.cc-total {
+  /* border-top: 1px solid #ddd;*/
+  padding-top: 0px 20px 0px 20px;
+  margin-top: 15px;
+  font-weight: 500;
+  background: #f3f3f3;
+}
+
+/* KHỐI THUỘC TÍNH TRONG PHẦN THANH TOÁN.*/
+
+.cc-product-attributes {
+  display: flex;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #777777;
+}
+
+.cc-cart-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* THUỘC TÍNH BIỂU DIỄN CỦA PHẦN PADDING: padding: trên  phải  dưới  trái; */
+.cc-total-wrap {
+  padding: 16px 16px 16px 16px;
+  background: #f3f3f3;
+}
+
+.cc-cart-title {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 10px 16px 0px 16px;
+}
+
+/* CSS CHO PHẦN HÌNH ẢNH SẢN PHẨM. */
+.cc-cart-img {
+  position: relative;
+  display: inline-block;
+}
+
+.cc-so-luon-SP {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  background: #670130;
+  color: #fff;
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+
+  padding: 1px 3px 1px 3px;
+  /*Thứ tự của Border Radius:  border-radius: top-left top-right bottom-right bottom-left; */
+  border-radius: 0 5px 0 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* CSS PHẦN TÍNH GIÁ TIỀN.*/
+.row-subtotal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-ship-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-total-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-subtotal,
+.title-ship-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.title-subtotal {
+  padding-bottom: 5px;
+}
+
+.subtotal-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+
+.ship-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #670130;
+}
+
+.title-total-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.total-price {
+  font-family: "Be Vietnam", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #670130;
+}
+
+/* CSS CHO KHỐI MÃ GIẢM GIÁ. */
+.cc-coupon-box {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 5px 16px 10px 16px;
+}
+
+.cc-coupon-box .cc-coupon-input {
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+
+  background-color: #f5f5f5;
+
+  border: 1px solid #cbcbcb;
+  border-radius: 5px;
+
+  font-size: 16px;
+  font-weight: 400;
+  color: #cbcbcb;
+  outline: none;
+}
+
+.cc-coupon-input:focus {
+  border-color: #7a003c;
+}
+
+.cc-coupon-btn {
+  width: 120px;
+  height: 40px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 5px;
+  background: #d9d9d9;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cc-coupon-btn:hover {
+  background: #d8d8d8;
+}
+
+.cc-coupon-input::placeholder {
+  color: #cbcbcb;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Be Vietnam", sans-serif;
+}
+
+.cc-address {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px 12px;
+  border: 1px solid #cbcbcb;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  resize: vertical;
+}
+
+/* CSS CHECK BOX KHỐI  HÓA ĐƠN. */
+
+.cc-row-checkbox {
+  margin-top: 15px;
+}
+
+.cc-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.cc-checkbox input {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  border: 1px solid #cbcbcb;
+}
+
+.cc-label-invoice {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cc-row input select textarea {
+  border: 1px solid #cbcbcb;
+}
+
+/* CSS KHỐI LẮP ĐẶT VÀ KHỐI PT THANH TOÁN */
+/* Dịch vụ lắp đặt. */
+.cc-install-box {
+  display: flex;
+  gap: 15px;
+  padding: 16px;
+  border: 2px solid #c5f5d5;
+  border-radius: 8px;
+  background: #f0fdf4;
+  margin-top: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.cc-install-content {
+  width: 535px;
+}
+
+.cc-icon-box {
+  padding-top: 8px;
+}
+
+.cc-install-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 50%;
+  font-size: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #206c3e;
+}
+
+.cc-install-title {
+  font-weight: 600;
+  color: #1e7e4a;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.cc-install-badge {
+  width: 249px;
+  height: 30px;
+  margin-left: 10px;
+  padding: 7px 10px 7px 10px;
+  background: #ffffff;
+  border-radius: 5px;
+  color: #206c3e;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "Be Vietnam Pro", sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.cc-install-desc {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #2f8f60;
+}
+
+.cc-payment-box {
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* KHỐI PHƯƠNG THỨC THANH TOÁN. */
+.cc-payment-box {
+  margin-top: 20px;
+  padding: 16px;
+
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+}
+
+.cc-payment-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cc-payment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px;
+  border: 1px solid #670130;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff0f6;
+  height: 85px;
+}
+
+.cc-payment-item input {
+  display: none;
+}
+
+.cc-payment-check {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  background: #7a003c;
+  color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+.cc-payment-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.material-icons {
+  font-size: 40px;
+  color: #1b6e44;
+}
+
+.cc-install-title {
+  color: #206c3e;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cc-install-desc {
+  color: #339156;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cc-payment-title img {
+  height: 32px;
+  width: 32px;
+}
+
+.cc-payment-title-text {
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+.cc-payment-item-truck {
+  display: flex;
+  height: 35px;
+  width: 35px;
+  gap: 10px;
+}
+
+.cc-payment-item-check {
+  height: 35px;
+  width: 35px;
+}
+
+.cc-payment-content {
+  width: 350px;
+  height: 39px;
+  gap: 15px;
+}
+.cc-payment-name {
+  width: 350px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+.cc-payment-desc {
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+.cc-row-img-truck {
+  display: flex;
+  align-items: center;
+}
+
+/* CSS KHỐI ĐIỀU KHOẢN DỊCH VỤ.*/
+.cc-checkout-bottom {
+  margin-top: 20px;
+}
+
+.cc-agree {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* CSS cho Input */
+
+.cc-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+}
+
+.cc-checkbox input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #0066cc;
+  border-radius: 4px;
+  background: white;
+}
+
+/* khi checked */
+.cc-checkbox input:checked + .checkmark {
+  background: #e6f2ff;
+}
+
+/* dấu tick */
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid #0066cc;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.cc-checkbox input:checked + .checkmark::after {
+  display: block;
+}
+
+/* CSS cho Input */
+.cc-agree a {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.cc-checkout-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cc-back-cart {
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: #7a0a2b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cc-back-cart:hover {
+  text-decoration: underline;
+}
+
+.cc-btn-order {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background: #7a0a2b;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cc-btn-order:hover {
+  background: #5f0821;
+}
+
+.cc-agree label {
+  font-size: 16px;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: #000000;
+}

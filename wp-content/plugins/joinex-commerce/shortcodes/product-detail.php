@@ -1,0 +1,365 @@
+<?php
+// Shortcode: [joinex_product_detail]
+function joinex_product_detail_shortcode() { 
+
+    // #region PHẦN LOGIC ĐỂ LẤY ĐƯỢC SẢN PHẨM TỪ URL
+        // lấy ra giá trị slug(Đường dẫn) sản phẩm từ URL
+        $product_slug = get_query_var('product_slug');
+        if ( ! $product_slug ) {
+            return '<p>Không tìm thấy sản phẩm theo như đường dẫn Slug.</p>';
+        }
+        // Tìm ID sản phẩm theo slug
+        global $wpdb;
+        // Đây này câu lệnh để lấy ID sản phẩm đây này.
+        $product_id = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type = 'product'",$product_slug));
+        if ( ! $product_id ) {
+            return '<p>Không tìm thấy sản phẩm theo ID sản phẩm.</p>';
+        }
+ 
+        $product = wc_get_product( $product_id );
+        if ( ! $product ) {
+            return '<p>Không tìm thấy sản phẩm theo ID sản phẩm.</p>';
+        }         
+    // #endregion
+
+    //#region HÀM TÌM BIẾN THỂ CÓ GIÁ TRỊ CỦA THUỘC TÍNH NHỎ NHẤT, CÓ GIÁ NHỎ NHẤT
+            function get_lowest_variation_dynamic( $product )
+                {
+                    if ( ! $product->is_type('variable') ) return null;
+                    $lowest_variation = null;
+                    $lowest_value = PHP_INT_MAX;
+                    $attribute_slug = null;
+                    foreach ( $product->get_children() as $variation_id )
+                    {
+                        $variation = wc_get_product( $variation_id );
+                        if ( ! $variation ) continue;
+
+                        $attrs = $variation->get_attributes();
+
+                        // Duyệt tất cả thuộc tính của biến thể
+                        foreach ( $attrs as $attr_name => $attr_value ) {
+                            // Lấy số từ chuỗi (ví dụ "5m" -> 5, "Ø9" -> 9)
+                            $value = (int) filter_var($attr_value, FILTER_SANITIZE_NUMBER_INT);
+
+                            // Nếu lấy được số hợp lệ thì so sánh
+                            if ( $value > 0 && $value < $lowest_value ) {
+                                $lowest_value = $value;
+                                $lowest_variation = $variation;
+                                $attribute_slug = $attr_name;
+                            }
+                        }
+                    }
+                    // Trả về biến thể nhỏ nhất + thuộc tính nào đã dùng để so sánh
+                    return [
+                        'variation' => $lowest_variation, //  mà trả về biến thể có giá trị thuộc tính nhỏ nhất theo kiểu số
+                        'attribute' => $attribute_slug,
+                        'value'     => $lowest_value
+                    ];
+                }
+    // #endregion
+    ob_start();
+
+   ?>
+
+    <!-- #region KHỐI HTML SHOW SẢN PHẨM -->
+        <div class="joinex-product-detail-wrap">
+            <div class="joinex-product-detail">
+                <!--#region KHỐI HÌNH ẢNH SẢN PHẨM MÔ TẢ NGẮN -->   
+                    <div class="images-short-description-product"> 
+                        <!--#region KHỐI HÌNH ẢNH SẢN PHẨM -->
+                            <div class="images-product-container">   <!-- KHỐI HÌNH ẢNH SẢN PHẨM -->
+
+                                <!-- ẢNH CHÍNH -->
+                                <div class="main-image-container">
+                                    <?php
+                                        $product     = wc_get_product( $product_id );
+                                        $main_img_id = $product->get_image_id(); // ảnh sản phẩm chính
+                                        $gallery_ids = $product->get_gallery_image_ids(); // thư viện ảnh
+
+                                        if ( $main_img_id ) {
+                                            echo wp_get_attachment_image( $main_img_id, 'large', false, array( 'id' => 'current-main-image' ));
+                                        }
+                                    ?>
+                                </div>            
+
+                                <!-- GALLERY THUMBNAIL--HÌNH ẢNH LIÊN QUAN SẢN PHẨM -->
+                                <div class="images-gallery-product-container">
+                                    <?php
+                                        if ( $main_img_id || $gallery_ids ) {
+                                            $all_ids = array(); 
+                                            if ( $main_img_id ) {
+                                                $all_ids[] = $main_img_id; // đưa ảnh chính lên đầu
+                                            }
+                                            if ( $gallery_ids ) {
+                                                $all_ids = array_merge( $all_ids, $gallery_ids );
+                                            }
+
+                                            $max_show = 4;
+                                            $total    = count( $all_ids );
+
+                                            if ( $total > $max_show ) {
+                                                // Nếu nhiều hơn 4 ảnh thì hiển thị slider với mũi tên
+                                                ?>
+                                                <div class="gallery-container">
+                                                    <button class="btn-prev"><</button>
+                                                    <div class="images-gallery-product slider">
+                                                        <?php foreach ( $all_ids as $index => $img_id ) : ?>
+                                                            <div class="gallery-thumb">
+                                                                <?php 
+                                                                    $class = $index === 0 ? 'thumb-image active' : 'thumb-image';
+                                                                    echo wp_get_attachment_image( $img_id, 'thumbnail', false, array( 'class' => $class ));
+                                                                ?>
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                    <button class="btn-next">></button>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                // Nếu ≤4 ảnh thì hiển thị bình thường
+                                                ?>
+                                                <div class="images-gallery-product">
+                                                    <?php foreach ( $all_ids as $index => $img_id ) : ?>
+                                                        <div class="gallery-thumb">
+                                                            <?php 
+                                                                $class = $index === 0 ? 'thumb-image active' : 'thumb-image';
+                                                                echo wp_get_attachment_image( $img_id, 'thumbnail', false, array( 'class' => $class ));
+                                                            ?>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        <!--#endregion -->
+                        <!--#region KHỐI TIÊU ĐỀ VÀ MÔ TẢ NGẮN  --> 
+                            <div class="title-short-description-product">  
+                                <!--#region  TIÊU ĐỀ SẢN PHẨM, GÍA SẢN PHẨM VÀ MÔ TẢ NGẮN  -->
+                                    <div class="product-detail-page-title-joinex">
+                                        <h1 id="product-detail-page-title-joinex"><?php echo esc_html($product->get_name()); ?></h1>
+                                        <?php echo wc_get_rating_html($product->get_average_rating()); ?>                                        
+                                    </div> 
+                                    <div class="product-price-wrap"> 
+                                         <!--#region Truyền giá trị động bằng JS khi load phần thuộc tính sản phẩm. -->                                      
+                                        <div id="block-price" class="product-price">
+                                            <?php 
+                                            // Hàm chuẩn hóa giá trị thuộc tính
+                                            function normalize_attr($value) {
+                                                return strtolower(preg_replace('/\D/', '', $value)); // chỉ giữ số, chuyển về lowercase
+                                            }
+
+                                            if ( $product->is_type('simple') ) // Nếu là sản phẩm đơn giản.
+                                            {
+                                                if ( $product->is_on_sale() ) {
+                                                    echo '<span class="sale-price">' . wc_price( $product->get_sale_price() ) . '</span>';
+                                                    echo '<span class="regular-price">' . wc_price( $product->get_regular_price() ) . '</span>';
+                                                } else {
+                                                    echo '<span class="regular-price-no-sale">' . wc_price( $product->get_regular_price() ) . '</span>';
+                                                }
+                                            }
+                                            else // Nếu là sản phẩm biến thể
+                                            {
+                                                $result = get_lowest_variation_dynamic( $product ); // mà trả về biến thể có giá trị thuộc tính nhỏ nhất theo kiểu số
+                                                    if ( $result['variation'] ) 
+                                                    {
+                                                       // echo "Biến thể nhỏ nhất theo thuộc tính {$result['attribute']} = {$result['value']} <br>";
+                                                       // echo "Giá: " . wc_price($result['variation']->get_price());
+                                                        if ( $result['variation']->is_on_sale() )
+                                                        {
+                                                            echo '<span class="sale-price">' . wc_price( $result['variation']->get_sale_price() ) . '</span>';
+                                                            echo '<span class="regular-price">' . wc_price( $result['variation']->get_regular_price() ) . '</span>';
+                                                        }
+                                                        else
+                                                        {
+                                                            echo '<span class="regular-price-no-sale">' . wc_price( $result['variation']->get_regular_price() ) . '</span>';
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        echo "Không tìm thấy biến thể phù hợp.";
+                                                    }
+                                            }
+                                            ?>
+                                        </div>    
+                                    </div>                                   
+                                    <div class="product-short-description">                 
+                                        <?php echo apply_filters( 'woocommerce_short_description', $product->get_short_description() );?>
+                                    </div>
+                                <!-- endregion--> 
+                                <!--#region ĐƯỜNG PHÂN CÁCH--> 
+                                   <div class="divider"></div>
+                                <!-- endregion-->                                                           
+                                                     
+                                  
+                                
+                                <!--#region CÁC HÀNH ĐỘNG SẢN PHẨM THÊM VÀO GIỎ HÀNG, MUA NGAY -->
+
+                               <form method="post" class="cart-form-integration">
+                                      <!--#region KHỐI THUỘC TÍNH SẢN PHẨM -->  
+                                        <div class="product-variation">
+                                            <?php
+                                            if ($product->is_type('variable')) {
+                                                $parent_product = $product;
+
+                                                // Nạp dữ liệu biến thể cho JS
+                                                $variations = $parent_product->get_children();
+                                                $variation_data = [];
+                                                foreach ($variations as $variation_id) {
+                                                    $variation = wc_get_product($variation_id);
+                                                    if (!$variation) continue;
+                                                    $variation_data[$variation_id] = [
+                                                        'attributes'    => $variation->get_attributes(),
+                                                        'regular_price' => wc_price($variation->get_regular_price()),
+                                                        'sale_price'    => wc_price($variation->get_sale_price()),
+                                                    ];
+                                                }
+                                                echo '<script>var variationData = ' . wp_json_encode($variation_data) . ';</script>';
+
+                                                // Render các nhóm nút chọn thuộc tính
+                                                $attributes = $parent_product->get_attributes();
+                                                echo '<div class="cc-variation-container">';
+                                                foreach ($attributes as $attribute) {
+                                                    $name = wc_attribute_label($attribute->get_name());
+                                                    echo '<div class="variation-group">';
+                                                    echo '<div class="label-variation">' . esc_html($name) . ':</div>';
+                                                    echo '<div class="button-variation-container">';
+
+                                                    if ($attribute->is_taxonomy()) {
+                                                        $terms = get_terms([
+                                                            'taxonomy'   => $attribute->get_name(),
+                                                            'object_ids' => $parent_product->get_id(),
+                                                        ]);
+                                                        sort($terms);
+                                                        foreach ($terms as $index => $term) {
+                                                            $active_class = ($index === 0) ? ' active' : '';
+                                                            echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($term->slug) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($term->name) . '</button>';
+                                                        }
+                                                    } else {
+                                                        $options = $attribute->get_options();
+                                                        sort($options, SORT_NATURAL | SORT_FLAG_CASE);
+                                                        foreach ($options as $index => $option) {
+                                                            $active_class = ($index === 0) ? ' active' : '';
+                                                            echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($option) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($option) . '</button>';
+                                                        }
+                                                    }
+                                                    echo '</div>';
+                                                    echo '</div>';
+                                                }
+                                                echo '</div>';
+                                            }
+                                            ?>
+                                        </div>
+                                    <!-- endregion--> 
+
+                                    <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+
+                                    <div class="cart-controls">
+                                        <!-- Hidden input: ID sản phẩm hoặc biến thể -->
+                                        <div>ID CỦA SẢN PHẨM ĐANG CHỌN</div>
+                                        <input type="text" id="selected-product-id" name="final_product_id" value="<?php echo esc_attr($product->get_id()); ?>" />
+                                        <!-- Hidden input cho từng attribute -->
+                                        <input type="hidden" name="attribute_pa_length" id="attr-length" value="">
+                                        <input type="hidden" name="attribute_pa_diameter" id="attr-diameter" value="">
+                                        <div class="quantity-input-group" style="margin-bottom: 15px;">
+                                            <label for="quantity">Số lượng:</label>
+                                            <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 5px; text-align: center;" />
+                                        </div>
+                                        <button type="submit" name="add_to_cart_action" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
+                                    </div>
+                                    
+                                </form>
+
+ 
+                                <!-- endregion--> 
+                                <!-- #region KHỐI THÔNG TIN DỊCH VỤ --> 
+                                    <div class="service-info-joinex"> 
+                                            <div class="service-item-joinex">
+                                                <div class="service-img">
+                                                <img class="support-joinex"  src="<?php echo JOINEX_PLUGIN_URL . 'assets/img/ProductDetailPageIMG/NutLienHeIMG.png'; ?>" alt="Cart">
+                                                </div>  
+                                                <div class="service-text-joinex">
+                                                    <h4>Lắp đặt tận nơi</h4>
+                                                    <p>Hướng dẫn và hỗ trợ lắp đặt tại nhà. <a href="#">Xem chi tiết</a></p>
+                                                </div>
+                                            </div>
+                                            <div class="service-divider"></div> <!-- ĐƯỜNG PHÂN CÁCH--> 
+                                            <div class="service-item-joinex">
+                                                <div class="service-img">
+                                                    <img class="transport-joinex"  src="<?php echo JOINEX_PLUGIN_URL . 'assets/img/ProductDetailPageIMG/XeTaiIMG.png'; ?>" alt="Cart">
+                                                </div>  
+                                                <div class="service-text-joinex">
+                                                    <h4>Giao hàng miễn phí</h4>
+                                                    <p>Miễn phí giao hàng cho đơn từ 500.000đ.</p>
+                                                </div>
+                                            </div>
+                                            <div class="service-divider"></div> <!-- ĐƯỜNG PHÂN CÁCH--> 
+                                            <div class="service-item-joinex">
+                                                <div class="service-img">
+                                                    <img class="return-product-joinex"  src="<?php echo JOINEX_PLUGIN_URL . 'assets/img/ProductDetailPageIMG/HoanHangIMG.png'; ?>" alt="Cart">
+                                                </div> 
+                                                <div class="service-text-joinex">
+                                                    <h4>Trả hàng</h4>
+                                                    <p>Miễn phí trả hàng trong vòng 30 ngày. <a href="#">Xem thêm</a></p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                <!-- endregion--> 
+                            </div>
+                        <!-- endregion--> 
+                    </div>  
+                <!--#endregion -->  
+                <!--#region KHỐI MÔ TẢ DÀI -->
+                    <div class="long-description-product">  <!-- KHỐI MÔ TẢ DÀI.  --> 
+                        <!-- PHẦN MÔ TẢ DÀI SẢN PHẨM  -->                  
+                        <div class="product-tabs-joinex">
+
+                            <ul class="tab-header-joinex">
+                                <li class="tab-link-joinex active" data-tab="desc">Mô tả sản phẩm</li>
+                                <li class="tab-link-joinex" data-tab="specs">Thông số kỹ thuật</li>
+                                <li class="tab-link-joinex" data-tab="guide">Hướng dẫn lắp đặt</li>
+                            </ul>
+
+                            <div class="tab-content-joinex"> <!-- TAB ĐẦU TIÊN --> 
+                                <?php echo wpautop($product->get_description()); ?>
+                            </div>
+
+                            <div id="specs" class="tab-pane-joinex"> <!-- TAB GIỮA --> 
+                                <p> THÔNG SỐ KỸ THUẬT SẢN PHẨM </p>
+                            </div>
+
+                            <div id="guide" class="tab-pane-joinex"> <!-- TAB CUỐI --> 
+                                <p>Hướng dẫn chi tiết cách lắp đặt sản phẩm tại nhà...</p>
+                            
+                            </div>
+                        </div>
+                    </div>
+                <!--#endregion -->                  
+                <!--#region KHỐI REVIEW SẢN PHẨM  --> 
+                    <div id="reviews" class="customer-review-product">  <!-- KHỐI REVIEW SẢN PHẨM  --> 
+                        <div><p> ĐÁNH GIÁ SẢN PHẨM</p></div>          
+                    </div>  
+                <!--#endregion -->      
+            </div>
+        </div>  
+    <!-- #endregion -->
+
+    
+    <?php
+    // KHÔNG CẦN HIỂU SÂU, ĐÂY ĐƠN GIẢN LÀ CÚ PHÁP CỦA PHP TRONG WORDPRESS THÔI, NÊN TUÂN THỦ.
+    // // Quay lại PHP để kết thúc hàm Thực ra đây là cách viết chuẩn trong WordPress/PHP:    
+    // Shortcode trong WordPress bắt buộc phải trả về một chuỗi (string). 
+    // Nếu bạn không mở lại PHP để viết return ob_get_clean();,
+    //  thì hàm sẽ không trả về gì cả → shortcode khi gọi ra sẽ trống, không hiển thị HTML.
+    // HTML ở bước 2 có, nhưng nếu thiếu bước 3 thì shortcode không “xuất” được HTML đó ra ngoài. 
+    // Bước 3 chính là cầu nối để WordPress nhận nội dung và hiển thị.
+    return ob_get_clean();
+    
+
+}
+
+add_shortcode('joinex_product_detail', 'joinex_product_detail_shortcode');
+
+    
