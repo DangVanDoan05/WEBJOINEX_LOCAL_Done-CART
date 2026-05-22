@@ -111,7 +111,7 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
                 // LOAD CSS CHO PHẦN SLIDER SẢN PHẨM
                 joinex_enqueue_safe_style('joinex-product-slider', 'assets/css/slider-product-detail.css', array('elementor-frontend'));
                 // LOAD CSS CHO TRANG GIỎ HÀNG
-                joinex_enqueue_safe_style('joinex-product-cart', 'assets/css/product-cart.css', array('elementor-frontend'));
+                joinex_enqueue_safe_style('joinex-product-cart', 'assets/css/product_joinex_cart.css', array('elementor-frontend'));
             //#endregion
 
             //#region LOAD JS CHO CÁC SHORTCODE
@@ -149,7 +149,7 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
         joinex_require_safe_shortcode('shortcodes/product_filter_dropdown.php');
         joinex_require_safe_shortcode('shortcodes/product-detail.php');
         joinex_require_safe_shortcode('shortcodes/slider-product-detail.php');
-        joinex_require_safe_shortcode('shortcodes/product_cart.php');
+        joinex_require_safe_shortcode('shortcodes/product_joinex_cart.php');
         joinex_require_safe_shortcode('shortcodes/joinex_test_cart.php');
     }
     // init: chạy sau khi WordPress đã load xong core, thích hợp để đăng ký shortcode, custom post type.
@@ -158,51 +158,46 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
 
 //#endregion
 
-// #region Hook THÊM SẢN PHẨM VÀO GIỎ HÀNG
 
+//#region Hook xử lý thêm vào giỏ hàng
+    add_action('template_redirect', function() {
+        if (isset($_POST['add_to_cart_action'])) {
 
-// Hook init XỬ LÝ KHI KHÁCH HÀNG NHẤN VÀO THÊM VÀO GIỎ HÀNG.
-// Hook init xử lý khi khách hàng nhấn Thêm vào giỏ hàng
-// Hook init xử lý khi khách hàng nhấn Thêm vào giỏ hàng
+            // Lấy ID sản phẩm cha từ form
+            $product_id = intval($_POST['final_product_id']);
+            $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-// Hook xử lý thêm vào giỏ hàng
-add_action('template_redirect', function() {
-    if (isset($_POST['add_to_cart_action'])) {
+            // Nếu là sản phẩm biến thể thì cần variation_id và attributes
+            $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
 
-        // Lấy ID sản phẩm cha từ form
-        $product_id = intval($_POST['final_product_id']);
-        $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
-
-        // Nếu là sản phẩm biến thể thì cần variation_id và attributes
-        $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
-
-        // Gom attributes từ form (nếu có)
-        $attributes = [];
-        foreach ($_POST as $key => $value) {
-            if (strpos($key, 'attribute_pa_') === 0) {
-                $attributes[$key] = sanitize_text_field($value);
+            // Gom attributes từ form (nếu có)
+            $attributes = [];
+            foreach ($_POST as $key => $value) {
+                if (strpos($key, 'attribute_pa_') === 0) {
+                    $attributes[$key] = sanitize_text_field($value);
+                }
             }
-        }
 
-        // Thêm vào giỏ hàng
-        if ($variation_id > 0) {
-            $added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $attributes);
-        } else {
-            $added = WC()->cart->add_to_cart($product_id, $quantity);
-        }
+            // Thêm vào giỏ hàng
+            if ($variation_id > 0) {
+                $added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $attributes);
+            } else {
+                $added = WC()->cart->add_to_cart($product_id, $quantity);
+            }
 
-        // Debug log
-        if ($added) {
-            error_log("✅ Đã thêm sản phẩm/biến thể vào giỏ: product_id=$product_id, variation_id=$variation_id");
-        } else {
-            error_log("❌ Không thêm được sản phẩm/biến thể vào giỏ");
-        }
+            // Debug log
+            if ($added) {
+                error_log("✅ Đã thêm sản phẩm/biến thể vào giỏ: product_id=$product_id, variation_id=$variation_id");
+            } else {
+                error_log("❌ Không thêm được sản phẩm/biến thể vào giỏ");
+            }
 
-        // Chuyển hướng về giỏ hàng
-        wp_safe_redirect(wc_get_cart_url());
-        exit;
-    }
-});
+            // Chuyển hướng về giỏ hàng
+            wp_safe_redirect(wc_get_cart_url());
+            exit;
+        }
+    });
+//#endregion
 
 
 

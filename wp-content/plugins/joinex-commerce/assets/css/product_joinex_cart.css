@@ -1,0 +1,70 @@
+.cart-page-joinex-container{
+/*#region  KHAI BÁO FONT CHỮ*/
+    @font-face {
+      font-family: "Be Vietnam";
+      src: url("../fonts/BeVietnam-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Be Vietnam";
+      src: url("../fonts/BeVietnam-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Be Vietnam Pro";
+      src: url("../fonts/BeVietnamPro-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Be Vietnam Pro";
+      src: url("../fonts/BeVietnamPro-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+/*#endregion*/
+.cart-page-joinex-wrap{
+    display: grid;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 6px;
+     border: 2px solid black;
+}
+
+.joinex-cart-title h2{
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.joinex-cart-detail{
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 6px;
+     border: 2px solid #ccc;
+}
+
+.joinex-cart-items{
+    width: 722px;
+     border-radius: 6px;
+     border: 2px solid red;
+}
+.joinex-cart-price{
+     border-radius: 6px;
+     border: 2px solid blue;
+}
+.joinex-cart-suggestions{
+     border-radius: 6px;
+     border: 2px solid palevioletred;
+}
+
+
+}

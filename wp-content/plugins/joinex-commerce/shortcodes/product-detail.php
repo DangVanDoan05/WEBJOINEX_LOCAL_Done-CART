@@ -250,6 +250,15 @@ function joinex_product_detail_shortcode() {
                                                 }
                                                 echo '</div>';
                                             }
+                                            else{
+                                                // logic cho sản phẩm đơn giản
+    echo '<input type="hidden" name="final_product_id" value="' . esc_attr($product->get_id()) . '" />';
+    echo '<div class="quantity-input-group">';
+    echo '<label for="quantity">Số lượng:</label>';
+    echo '<input type="number" id="quantity" name="quantity" value="1" min="1" />';
+    echo '</div>';
+    echo '<button type="submit" name="add_to_cart_action" class="btn-add-to-cart">Thêm vào giỏ hàng</button>';
+                                            }
                                             ?>
                                         </div>
                                     <!-- endregion--> 
