@@ -114,18 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("✅ JS JOINEX PHẦN THUỘC TÍNH ĐANG CHẠY");
 
     const attrButtons = document.querySelectorAll('.attr-btn');
-    const finalProductIdInput = document.getElementById('selected-product-id');
+    const variationIdInput = document.getElementById('selected-variation-id'); // hidden variation_id
     const priceDisplay = document.getElementById('block-price'); // Khối hiển thị giá
+
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+    }
 
     function matchVariation() {
         let selectedAttributes = {};
-        // Gom các nút đang được chọn
         const activeButtons = document.querySelectorAll('.attr-btn.active');
         activeButtons.forEach(btn => {
             selectedAttributes[btn.dataset.attrName] = btn.dataset.attr;
 
             // Cập nhật hidden input attribute
-            const hiddenAttrInput = document.querySelector('input[name="'+btn.dataset.attrName+'"]');
+            const hiddenAttrInput = document.querySelector('input[name="attribute_'+btn.dataset.attrName+'"]');
             if (hiddenAttrInput) hiddenAttrInput.value = btn.dataset.attr;
         });
 
@@ -151,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (matchedId) {
             // Cập nhật ID biến thể
-            finalProductIdInput.value = matchedId;
+            variationIdInput.value = matchedId;
 
             // Cập nhật giá hiển thị
             if (priceDisplay && matchedData) {
@@ -160,19 +163,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (salePrice && salePrice !== "") {
                     priceDisplay.innerHTML = `
-                        <span class="sale-price">${salePrice}</span>
-                        <span class="regular-price"><s>${regularPrice}</s></span>
+                        <span class="sale-price">${formatCurrency(salePrice)}</span>
+                        <span class="regular-price"><s>${formatCurrency(regularPrice)}</s></span>
                     `;
                 } else {
                     priceDisplay.innerHTML = `
-                        <span class="regular-price-no-sale">${regularPrice}</span>
+                        <span class="regular-price-no-sale">${formatCurrency(regularPrice)}</span>
                     `;
                 }
             }
 
             console.log("Matched variation:", matchedId, matchedData);
         } else {
-            finalProductIdInput.value = "";
+            variationIdInput.value = "";
             console.log("No variation matched", selectedAttributes);
         }
     }
@@ -190,5 +193,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Quét ngay khi load trang để nhận biến thể mặc định
     matchVariation();
 });
+
 
 //#endregion

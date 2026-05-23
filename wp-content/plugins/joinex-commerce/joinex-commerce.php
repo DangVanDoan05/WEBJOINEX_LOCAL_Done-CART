@@ -160,43 +160,54 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
 
 
 //#region Hook xử lý thêm vào giỏ hàng
-    add_action('template_redirect', function() {
-        if (isset($_POST['add_to_cart_action'])) {
+   add_action('template_redirect', function() {
+    // Trường hợp sản phẩm đơn giản (WooCommerce mặc định dùng add-to-cart)
+    if (isset($_POST['add-to-cart'])) {
+        $product_id = intval($_POST['add-to-cart']);
+        $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-            // Lấy ID sản phẩm cha từ form
-            $product_id = intval($_POST['final_product_id']);
-            $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+        $added = WC()->cart->add_to_cart($product_id, $quantity);
 
-            // Nếu là sản phẩm biến thể thì cần variation_id và attributes
-            $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
-
-            // Gom attributes từ form (nếu có)
-            $attributes = [];
-            foreach ($_POST as $key => $value) {
-                if (strpos($key, 'attribute_pa_') === 0) {
-                    $attributes[$key] = sanitize_text_field($value);
-                }
-            }
-
-            // Thêm vào giỏ hàng
-            if ($variation_id > 0) {
-                $added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $attributes);
-            } else {
-                $added = WC()->cart->add_to_cart($product_id, $quantity);
-            }
-
-            // Debug log
-            if ($added) {
-                error_log("✅ Đã thêm sản phẩm/biến thể vào giỏ: product_id=$product_id, variation_id=$variation_id");
-            } else {
-                error_log("❌ Không thêm được sản phẩm/biến thể vào giỏ");
-            }
-
-            // Chuyển hướng về giỏ hàng
-            wp_safe_redirect(wc_get_cart_url());
-            exit;
+        if ($added) {
+            error_log("✅ Đã thêm sản phẩm đơn giản $product_id vào giỏ");
+        } else {
+            error_log("❌ Không thêm được sản phẩm đơn giản $product_id");
         }
-    });
+
+        wp_safe_redirect(wc_get_cart_url());
+        exit;
+    }
+
+    // Trường hợp sản phẩm biến thể (form custom của bạn)
+    if (isset($_POST['add_to_cart_action'])) {
+        $parent_id    = intval($_POST['final_product_id']);
+        $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
+        $quantity     = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+
+        $attributes = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'attribute_pa_') === 0) {
+                $attributes[$key] = sanitize_text_field($value);
+            }
+        }
+
+        if ($variation_id > 0) {
+            $added = WC()->cart->add_to_cart($parent_id, $quantity, $variation_id, $attributes);
+        } else {
+            $added = WC()->cart->add_to_cart($parent_id, $quantity);
+        }
+
+        if ($added) {
+            error_log("✅ Đã thêm biến thể $variation_id vào giỏ");
+        } else {
+            error_log("❌ Không thêm được biến thể $variation_id");
+        }
+
+        wp_safe_redirect(wc_get_cart_url());
+        exit;
+    }
+});
+
 //#endregion
 
 
