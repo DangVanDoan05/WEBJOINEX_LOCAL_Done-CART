@@ -67,17 +67,18 @@
         gap: 20px;
         width: 722px;
         border-radius: 6px;
-        border: 2px solid red;
+       
       }
         /*#region KHỐI TỪNG SẢN PHẨM*/
           .cart-item{ /*KHỐI TỪNG SẢN PHẨM*/
+             box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* đổ bóng nhẹ */
             display: flex;
             gap:20px;
             width: 722px;
             height: 180px;
             display: flex;
             border-radius: 6px;
-            border: 2px solid goldenrod;
+           
             padding: 18px;
           }
           .item-thumb{ /*HÌNH ẢNH SẢN PHẨM*/
@@ -91,7 +92,7 @@
               padding-bottom: 12px;
               display: flex ;
               width: 490px;
-              border: 2px solid red;
+             
               border-radius: 6px;
                flex-direction: column;     /* sắp xếp theo chiều dọc */
               justify-content: space-between; /* đẩy phần tử ra 2 đầu theo chiều dọc */
@@ -129,7 +130,7 @@
             {
                 display: flex;
                 align-items: center;   /* căn giữa theo chiều dọc */
-                border: 2px solid paleturquoise;
+               
                 border-radius: 6px;
             }
             .image-button-remove-product-wrap img{
@@ -139,7 +140,7 @@
 
             .item-price-qty-wrap{ /* KHỐI GIÁ VÀ SỐ LƯỢNG*/
               display: flex;
-              gap:150px;             
+              gap:110px;             
             }
 
             .item-total{
@@ -159,33 +160,42 @@
               .qty-btn {
                 width: 60px;
                 height: 32px;
-                border: 1px solid #ccc;
+                border: 1px solid #777777;
                 background: #f5f5f5;
                 font-family: "Be Vietnam", sans-serif;
                 font-size: 26px;
                 font-weight: 500;
                 color: #000000;
                 cursor: pointer;
-                border-radius: 4px;
+               
                 display: flex;
                 justify-content: space-between; /* đẩy ra 2 đầu ngang */
                 align-items: center;            /* căn giữa theo chiều dọc */
               }
-
+              .minus{
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+               }
+               .plus{
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+               }
               .qty-btn:hover {
                 background: #e0e0e0;
               }
              
               .qty-input {
-                 font-family: "Be Vietnam", sans-serif;
+                font-family: "Be Vietnam", sans-serif;
                 font-size: 20px;
                 font-weight: 500;
                 color: #000000;
-                width: 54px;
+                width: 75px;
                 height: 32px;
                 text-align: center;
-                border: 1px solid #ccc;
-                border-radius: 4px;
+                border: 1px solid #777777;
+                border-left: 0px;
+                border-right: 0px;
+               
               }
 
 
@@ -194,7 +204,7 @@
     /*#endregion*/
     .joinex-cart-price{
         border-radius: 6px;
-        border: 2px solid blue;
+        border: 2px solid #777777;
     }
   /*#endregion*/
   .joinex-cart-suggestions{
@@ -203,4 +213,4 @@
   }
 
 
-}
+}   
