@@ -8,64 +8,107 @@ function joinex_product_cart_shortcode() {
     ?>
     <div class="cart-page-joinex-container">
         <div class="cart-page-joinex-wrap">
-            <!-- Tiêu đề -->
-            <div class="joinex-cart-title">
-                <h2>Giỏ hàng của bạn</h2>
-            </div>
-            <div class="joinex-cart-detail">
-                <!-- Danh sách sản phẩm trong giỏ -->
-                <div class="joinex-cart-items">
-<?php
-if ( $cart && ! $cart->is_empty() ) {
-    foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
-        $product   = $cart_item['data'];
-        $quantity  = $cart_item['quantity'];
-        $line_total = $cart_item['line_total'];
-        $thumbnail = $product->get_image( 'thumbnail' );
-
-        ?>
-        <div class="cart-item">
-            <div class="item-thumb"><?php echo $thumbnail; ?></div>
-            <div class="item-info">
-                <span class="item-name"><?php echo esc_html( $product->get_name() ); ?></span>
-
-                <?php if ( ! empty( $cart_item['variation'] ) ) : ?>
-                    <ul class="item-attributes">
-                        <?php foreach ( $cart_item['variation'] as $attr_name => $attr_value ) : ?>
-                            <li>
-                                <?php 
-                                // Lấy nhãn thuộc tính (ví dụ: "Chiều dài dây vòi")
-                                echo wc_attribute_label( $attr_name ) . ': ';
-
-                                // Nếu là taxonomy thì đổi slug thành tên term
-                                $taxonomy = str_replace( 'attribute_', '', $attr_name );
-                                $term = get_term_by( 'slug', $attr_value, $taxonomy );
-                                if ( $term ) {
-                                    echo esc_html( $term->name );
-                                } else {
-                                    echo esc_html( $attr_value );
-                                }
-                                ?>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
-
-                <span class="item-qty">Số lượng: <?php echo esc_html( $quantity ); ?></span>
-                <span class="item-total">Thành tiền: <?php echo wc_price( $line_total ); ?></span>
-            </div>
-        </div>
-        <?php
-    }
-} else {
-    echo '<p>Giỏ hàng trống.</p>';
-}
-?>
-
-
-
-
+            <!--#region KHỐI TIÊU ĐỀ GIỎ HÀNG -->
+                <div class="joinex-cart-title">
+                    <h2>Giỏ hàng của bạn</h2>
+                    <?php
+                        $cart_count = WC()->cart->get_cart_contents_count();
+                        if ( $cart_count > 0 ) {
+                            echo '<div class="joinex-cart-notice">Bạn có ' . $cart_count . ' sản phẩm trong giỏ hàng</div>';
+                        } else {
+                            echo '<div class="joinex-cart-notice">Giỏ hàng của bạn đang trống</div>';
+                        }
+                    ?>
                 </div>
+            <!-- #endregion -->
+            <div class="joinex-cart-detail">
+                <!--#region DANH SÁCH SẢN PHẨM TRONG GIỎ -->
+                    <div class="joinex-cart-items-container">                     
+                     <?php
+                        if ( $cart && ! $cart->is_empty() )
+                        {
+                            foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+                                $product    = $cart_item['data'];
+                                $quantity   = $cart_item['quantity'];
+                                $line_total = $cart_item['line_total'];
+                                $thumbnail  = $product->get_image( 'thumbnail' );
+                                ?>
+                                <div class="cart-item">
+                                    <!--#region KHỐI HÌNH ẢNH SẢN PHẨM -->
+                                        <div class="item-thumb"><?php echo $thumbnail; ?></div>
+                                    <!--#endregion-->
+                                    <!--#region KHỐI TIÊU ĐỀ, THUỘC TÍNH, GIÁ SẢN PHẨM -->
+                                        <div class="item-info-button-container">
+                                            <div class="item-info">
+                                                <!--#TIÊU ĐỀ SẢN PHẨM-->
+                                                <div class="item-name-variation-wrap">
+                                                    <div class="item-name"><?php echo esc_html( $product->get_name() ); ?></div>
+                                                    <!--#region KHỐI THUỘC TÍNH SẢN PHẨM -->
+                                                        <?php if ( ! empty( $cart_item['variation'] ) ) : ?>
+                                                            <ul class="item-attributes">
+                                                                <?php foreach ( $cart_item['variation'] as $attr_name => $attr_value ) : ?>
+                                                                    <li>
+                                                                        <?php 
+                                                                        // Lấy tên taxonomy từ key (ví dụ: attribute_pa_chieu-dai-day-voi -> pa_chieu-dai-day-voi)
+                                                                        $taxonomy = str_replace( 'attribute_', '', $attr_name );
+
+                                                                        // Lấy nhãn hiển thị của attribute
+                                                                        $label = wc_attribute_label( $taxonomy );
+
+                                                                        // In nhãn
+                                                                        echo esc_html( $label ) . ': ';
+
+                                                                        // Nếu là taxonomy thì đổi slug thành tên term
+                                                                        $term = get_term_by( 'slug', $attr_value, $taxonomy );
+                                                                        if ( $term ) {
+                                                                            echo esc_html( $term->name );
+                                                                        } else {
+                                                                            echo esc_html( $attr_value );
+                                                                        }
+
+                                                                        // Debug log để kiểm tra
+                                                                        error_log("Attr key: $attr_name | Taxonomy: $taxonomy | Label: $label | Value: $attr_value");
+                                                                        ?>
+                                                                    </li>
+                                                                <?php endforeach; ?>
+                                                            </ul>
+                                                        <?php endif; ?>
+                                                    <!--#endregion-->
+                                                </div>
+                                                 <div class="item-price-qty-wrap">
+                                                    
+                                                     <div class="item-total"><?php echo wc_price( $line_total ); ?>
+                                                     </div>
+
+                                                     <div class="quantity-box">
+                                                        <button class="qty-btn minus">−</button>
+                                                        <input type="number" 
+                                                            class="qty-input" 
+                                                            value="<?php echo esc_attr( $quantity ); ?>" 
+                                                            min="1">
+                                                        <button class="qty-btn plus">+</button>
+                                                    </div>
+                                                
+                                                 </div>
+                                            </div>
+                                            <div class="image-button-remove-product-wrap">
+                                               <img class="cc-img-CartRemoveProduct" 
+                                                src="<?php echo JOINEX_PLUGIN_URL . 'assets/img/CartIMG/RemoveCart.png'; ?>" 
+                                                alt="Xóa sản phẩm khỏi giỏ hàng">  
+                                            </div>
+                                         </div>                            
+                                    <!--#endregion-->
+                                </div>
+                                <?php
+                            }
+                        } 
+                        else
+                        {
+                            echo '<p>Giỏ hàng trống.</p>';
+                        }
+                    ?>                     
+                    </div>
+                <!--#endregion-->
 
                 <!-- Tóm tắt đơn hàng -->
                 <div class="joinex-cart-price">

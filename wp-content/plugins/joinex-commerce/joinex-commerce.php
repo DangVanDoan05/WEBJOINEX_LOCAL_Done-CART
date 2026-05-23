@@ -117,6 +117,7 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
             //#region LOAD JS CHO CÁC SHORTCODE
                joinex_enqueue_safe_script('joinex-slider-js', 'assets/js/slider-product-detail.js', array('jquery'), true);
                joinex_enqueue_safe_script('joinex-product-detail-js', 'assets/js/product-detail.js', array('jquery'), true);
+               joinex_enqueue_safe_script('joinex-product-cart-js', 'assets/js/product_joinex_cart.js', array('jquery'), true);
             //#endregion
 
         }
@@ -206,7 +207,7 @@ Author: M1029_Dang Van Doan DONG DUONG Plastic & Mold
         wp_safe_redirect(wc_get_cart_url());
         exit;
     }
-});
+    });
 
 //#endregion
 

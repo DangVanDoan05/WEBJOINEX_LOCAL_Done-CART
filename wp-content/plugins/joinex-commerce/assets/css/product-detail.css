@@ -407,13 +407,21 @@
 .cart-form-integration
 {
    border: 2px solid #670130;
+   border-radius: 4px;
 }
 
   .action-buttons-joinex {
     display: grid;
     gap: 10px;
   }
-
+  
+.btn-add-to-cart-wrap{
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+   align-items: center; /* căn giữa theo chiều dọc */
+   
+}
   .cart-btn-joinex,
   .buy-btn-joinex {
     padding: 6px 9px;

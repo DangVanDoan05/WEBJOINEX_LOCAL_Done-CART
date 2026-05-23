@@ -191,98 +191,94 @@ function joinex_product_detail_shortcode() {
                                 <!-- endregion--> 
                                 <!--#region ĐƯỜNG PHÂN CÁCH--> 
                                    <div class="divider"></div>
-                                <!-- endregion-->                                                           
-                                                     
-                                  
-                                
+                                <!-- endregion-->                                                                                                                                                                            
                                 <!--#region CÁC HÀNH ĐỘNG SẢN PHẨM THÊM VÀO GIỎ HÀNG, MUA NGAY -->
+                                    <form method="post" class="cart-form-integration">
+                                        <?php
+                                        // Nếu là sản phẩm đơn giản
+                                        if ($product->is_type('simple')) {
+                                            ?>
+                                             <div class="btn-add-to-cart-wrap">
+                                                <input type="hidden" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" />
+                                                <div class="quantity-input-group">
+                                                    <label for="quantity">Số lượng:</label>
+                                                    <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 5px; text-align: center;" />
+                                                </div>
+                                                <button type="submit" class="cart-btn-joinex">Thêm vào giỏ hàng</button>
+                                            </div>
 
-                              <form method="post" class="cart-form-integration">
-    <?php
-    // Nếu là sản phẩm đơn giản
-    if ($product->is_type('simple')) {
-        ?>
-        <input type="hidden" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" />
-        <div class="quantity-input-group" style="margin-bottom: 15px;">
-            <label for="quantity">Số lượng:</label>
-            <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 5px; text-align: center;" />
-        </div>
-        <button type="submit" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-        <?php
-    }
+                                            <?php
+                                        }
+                                        // Nếu là sản phẩm biến thể
+                                        if ($product->is_type('variable')) {
+                                            $parent_product = $product;
 
-    // Nếu là sản phẩm biến thể
-    if ($product->is_type('variable')) {
-        $parent_product = $product;
+                                            // Nạp dữ liệu biến thể cho JS
+                                            $variations = $parent_product->get_children();
+                                            $variation_data = [];
+                                            foreach ($variations as $variation_id) {
+                                                $variation = wc_get_product($variation_id);
+                                                if (!$variation) continue;
+                                                $variation_data[$variation_id] = [
+                                                    'attributes'    => $variation->get_attributes(),
+                                                    'regular_price' => $variation->get_regular_price(),
+                                                    'sale_price'    => $variation->get_sale_price(),
+                                                ];
+                                            }
+                                            echo '<script>var variationData = ' . wp_json_encode($variation_data) . ';</script>';
 
-        // Nạp dữ liệu biến thể cho JS
-        $variations = $parent_product->get_children();
-        $variation_data = [];
-        foreach ($variations as $variation_id) {
-            $variation = wc_get_product($variation_id);
-            if (!$variation) continue;
-            $variation_data[$variation_id] = [
-                'attributes'    => $variation->get_attributes(),
-                'regular_price' => $variation->get_regular_price(),
-                'sale_price'    => $variation->get_sale_price(),
-            ];
-        }
-        echo '<script>var variationData = ' . wp_json_encode($variation_data) . ';</script>';
+                                            // Render các nhóm nút chọn thuộc tính
+                                            $attributes = $parent_product->get_attributes();
+                                            echo '<div class="cc-variation-container">';
+                                            foreach ($attributes as $attribute) {
+                                                $name = wc_attribute_label($attribute->get_name());
+                                                echo '<div class="variation-group">';
+                                                echo '<div class="label-variation">' . esc_html($name) . ':</div>';
+                                                echo '<div class="button-variation-container">';
 
-        // Render các nhóm nút chọn thuộc tính
-        $attributes = $parent_product->get_attributes();
-        echo '<div class="cc-variation-container">';
-        foreach ($attributes as $attribute) {
-            $name = wc_attribute_label($attribute->get_name());
-            echo '<div class="variation-group">';
-            echo '<div class="label-variation">' . esc_html($name) . ':</div>';
-            echo '<div class="button-variation-container">';
+                                                if ($attribute->is_taxonomy()) {
+                                                    $terms = get_terms([
+                                                        'taxonomy'   => $attribute->get_name(),
+                                                        'object_ids' => $parent_product->get_id(),
+                                                    ]);
+                                                    sort($terms);
+                                                    foreach ($terms as $index => $term) {
+                                                        $active_class = ($index === 0) ? ' active' : '';
+                                                        echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($term->slug) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($term->name) . '</button>';
+                                                    }
+                                                } else {
+                                                    $options = $attribute->get_options();
+                                                    sort($options, SORT_NATURAL | SORT_FLAG_CASE);
+                                                    foreach ($options as $index => $option) {
+                                                        $active_class = ($index === 0) ? ' active' : '';
+                                                        echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($option) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($option) . '</button>';
+                                                    }
+                                                }
+                                                echo '</div>';
+                                                echo '</div>';
+                                            }
+                                            echo '</div>';
+                                            ?>
 
-            if ($attribute->is_taxonomy()) {
-                $terms = get_terms([
-                    'taxonomy'   => $attribute->get_name(),
-                    'object_ids' => $parent_product->get_id(),
-                ]);
-                sort($terms);
-                foreach ($terms as $index => $term) {
-                    $active_class = ($index === 0) ? ' active' : '';
-                    echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($term->slug) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($term->name) . '</button>';
-                }
-            } else {
-                $options = $attribute->get_options();
-                sort($options, SORT_NATURAL | SORT_FLAG_CASE);
-                foreach ($options as $index => $option) {
-                    $active_class = ($index === 0) ? ' active' : '';
-                    echo '<button type="button" class="attr-btn' . $active_class . '" data-attr="' . esc_attr($option) . '" data-attr-name="' . esc_attr($attribute->get_name()) . '">' . esc_html($option) . '</button>';
-                }
-            }
-            echo '</div>';
-            echo '</div>';
-        }
-        echo '</div>';
-        ?>
-
-        <!-- Hidden input: ID sản phẩm cha -->
-        <input type="hidden" name="final_product_id" value="<?php echo esc_attr($product->get_id()); ?>" />
-        <!-- Hidden input cho variation_id -->
-        <input type="hidden" name="variation_id" id="selected-variation-id" value="" />
-        <!-- Hidden input cho từng attribute -->
-        <?php foreach ($attributes as $attribute) : ?>
-            <input type="hidden" name="attribute_<?php echo esc_attr($attribute->get_name()); ?>" id="attr-<?php echo esc_attr($attribute->get_name()); ?>" value="" />
-        <?php endforeach; ?>
-
-        <div class="quantity-input-group" style="margin-bottom: 15px;">
-            <label for="quantity">Số lượng:</label>
-            <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 5px; text-align: center;" />
-        </div>
-        <button type="submit" name="add_to_cart_action" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-        <?php
-    }
-    ?>
-</form>
-
-
- 
+                                            <!-- Hidden input: ID sản phẩm cha -->
+                                            <input type="hidden" name="final_product_id" value="<?php echo esc_attr($product->get_id()); ?>" />
+                                            <!-- Hidden input cho variation_id -->
+                                            <input type="hidden" name="variation_id" id="selected-variation-id" value="" />
+                                            <!-- Hidden input cho từng attribute -->
+                                            <?php foreach ($attributes as $attribute) : ?>
+                                                <input type="hidden" name="attribute_<?php echo esc_attr($attribute->get_name()); ?>" id="attr-<?php echo esc_attr($attribute->get_name()); ?>" value="" />
+                                            <?php endforeach; ?>
+                                            <div class="btn-add-to-cart-wrap">
+                                                <div class="quantity-input-group">
+                                                    <label for="quantity">Số lượng:</label>
+                                                    <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 60px; padding: 5px; text-align: center;" />
+                                                </div>
+                                                <button type="submit" name="add_to_cart_action" class="cart-btn-joinex">Thêm vào giỏ hàng</button>
+                                            </div>    
+                                            <?php
+                                        }
+                                        ?>
+                                    </form>
                                 <!-- endregion--> 
                                 <!-- #region KHỐI THÔNG TIN DỊCH VỤ --> 
                                     <div class="service-info-joinex"> 
