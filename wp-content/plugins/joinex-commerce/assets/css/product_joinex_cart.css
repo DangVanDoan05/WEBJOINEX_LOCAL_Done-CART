@@ -1,216 +1,231 @@
-.cart-page-joinex-container{
-
+.cart-page-joinex-container {
   /*#region  KHAI BÁO FONT CHỮ*/
-      @font-face {
-        font-family: "Be Vietnam";
-        src: url("../fonts/BeVietnam-Regular.ttf") format("truetype");
-        font-weight: 400;
-        font-style: normal;
-      }
+  @font-face {
+    font-family: "Be Vietnam";
+    src: url("../fonts/BeVietnam-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
 
-      @font-face {
-        font-family: "Be Vietnam";
-        src: url("../fonts/BeVietnam-Bold.ttf") format("truetype");
-        font-weight: 700;
-        font-style: normal;
-      }
+  @font-face {
+    font-family: "Be Vietnam";
+    src: url("../fonts/BeVietnam-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
 
-      @font-face {
-        font-family: "Be Vietnam Pro";
-        src: url("../fonts/BeVietnamPro-Regular.ttf") format("truetype");
-        font-weight: 400;
-        font-style: normal;
-      }
+  @font-face {
+    font-family: "Be Vietnam Pro";
+    src: url("../fonts/BeVietnamPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
 
-      @font-face {
-        font-family: "Be Vietnam Pro";
-        src: url("../fonts/BeVietnamPro-Bold.ttf") format("truetype");
-        font-weight: 700;
-        font-style: normal;
-      }
+  @font-face {
+    font-family: "Be Vietnam Pro";
+    src: url("../fonts/BeVietnamPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
   /*#endregion*/
-  .cart-page-joinex-wrap{
-      display: grid;
-      gap: 10px;
-      padding: 5px;
-      border-radius: 6px;
-      border: 2px solid black;
+  .cart-page-joinex-wrap {
+    display: grid;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 2px solid black;
   }
   /*#region  KHỐI TIÊU ĐỀ */
-    .joinex-cart-title h2{
-        font-family: "Be Vietnam", sans-serif;
-        font-size: 36px;
-        font-weight: 600;
-        margin-bottom: 0px;
-        color: #000000;
-    }
-    .joinex-cart-notice{
-      font-family: "Be Vietnam Pro", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        margin-bottom: 20px;
-        color: #64748B;
-    }
+  .joinex-cart-title h2 {
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    color: #000000;
+  }
+  .joinex-cart-notice {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #64748b;
+  }
   /*#endregion*/
 
-  /*#region KHỐI Ở GIỮA HIỂN THỊ SẢN PHẨM TRONG GIỎ HÀNG VÀ GIÁ SẢN PHẨM */  
-    .joinex-cart-detail{
-        display: flex;
-        gap: 10px;
-        padding: 5px;
-        border-radius: 6px;
-        border: 2px solid #ccc;
-    }
-    /*#region KHỐI HIỂN THỊ SẢN PHẨM VÀ TỪNG SẢN PHẨM*/
-      .joinex-cart-items-container{
-        display: grid;
-        gap: 20px;
-        width: 722px;
-        border-radius: 6px;
-       
-      }
-        /*#region KHỐI TỪNG SẢN PHẨM*/
-          .cart-item{ /*KHỐI TỪNG SẢN PHẨM*/
-             box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* đổ bóng nhẹ */
-            display: flex;
-            gap:20px;
-            width: 722px;
-            height: 180px;
-            display: flex;
-            border-radius: 6px;
-           
-            padding: 18px;
-          }
-          .item-thumb{ /*HÌNH ẢNH SẢN PHẨM*/
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* đổ bóng nhẹ */
-            width: 143px;
-            height: 143px;
-            border-radius: 10px;
-          }
-          .item-info{
-              padding-top: 12px;
-              padding-bottom: 12px;
-              display: flex ;
-              width: 490px;
-             
-              border-radius: 6px;
-               flex-direction: column;     /* sắp xếp theo chiều dọc */
-              justify-content: space-between; /* đẩy phần tử ra 2 đầu theo chiều dọc */
-          }
-          .item-name{ /*TÊN SẢN PHẨM*/
-              font-family: "Be Vietnam Pro", sans-serif;
-              font-size: 20px;
-              font-weight: 600;            
-              color: #000000; 
-          }
-          .item-attributes 
-           {
-              list-style: none;       /* bỏ dấu chấm */
-              margin: 5px 0;
-              padding: 0;
-              display: flex;          /* hiển thị ngang */
-              flex-wrap: wrap;        /* xuống dòng nếu dài quá */
-              gap: 15px;              /* khoảng cách giữa các thuộc tính */
-            }
+  /*#region KHỐI Ở GIỮA HIỂN THỊ SẢN PHẨM TRONG GIỎ HÀNG VÀ GIÁ SẢN PHẨM */
+  .joinex-cart-detail {
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+  }
+  /*#region KHỐI HIỂN THỊ SẢN PHẨM VÀ TỪNG SẢN PHẨM*/
+  .joinex-cart-items-container {
+    display: grid;
+    gap: 20px;
+    width: 722px;
+    border-radius: 6px;
+  }
+  /*#region KHỐI TỪNG SẢN PHẨM*/
+  .cart-item {
+    /*KHỐI TỪNG SẢN PHẨM*/
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* đổ bóng nhẹ */
+    display: flex;
+    gap: 20px;
+    width: 722px;
+    height: 180px;
+    display: flex;
+    border-radius: 6px;
 
-            .item-attributes li 
-            {
-              font-family: "Be Vietnam", sans-serif;
-              font-size: 16px;
-              font-weight: 500;
-              color: #64748B;
-            }
+    padding: 18px;
+  }
+  .item-thumb {
+    /*HÌNH ẢNH SẢN PHẨM*/
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* đổ bóng nhẹ */
+    width: 143px;
+    height: 143px;
+    border-radius: 10px;
+  }
+  .item-info {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: flex;
+    width: 490px;
 
-            .item-info-button-container{
-              display: flex;
-             
-            }
-
-            .image-button-remove-product-wrap
-            {
-                display: flex;
-                align-items: center;   /* căn giữa theo chiều dọc */
-               
-                border-radius: 6px;
-            }
-            .image-button-remove-product-wrap img{
-                width: 31px;
-                height: 31px;
-            }
-
-            .item-price-qty-wrap{ /* KHỐI GIÁ VÀ SỐ LƯỢNG*/
-              display: flex;
-              gap:110px;             
-            }
-
-            .item-total{
-              font-family: "Be Vietnam", sans-serif;
-              font-size: 24px;
-              font-weight: 500;
-              color: #000000;
-              width: 150px;
-            }
-
-            .quantity-box {
-                display: flex;
-                align-items: center;
-                
-              }
-
-              .qty-btn {
-                width: 60px;
-                height: 32px;
-                border: 1px solid #777777;
-                background: #f5f5f5;
-                font-family: "Be Vietnam", sans-serif;
-                font-size: 26px;
-                font-weight: 500;
-                color: #000000;
-                cursor: pointer;
-               
-                display: flex;
-                justify-content: space-between; /* đẩy ra 2 đầu ngang */
-                align-items: center;            /* căn giữa theo chiều dọc */
-              }
-              .minus{
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-               }
-               .plus{
-                border-top-right-radius: 5px;
-                border-bottom-right-radius: 5px;
-               }
-              .qty-btn:hover {
-                background: #e0e0e0;
-              }
-             
-              .qty-input {
-                font-family: "Be Vietnam", sans-serif;
-                font-size: 20px;
-                font-weight: 500;
-                color: #000000;
-                width: 75px;
-                height: 32px;
-                text-align: center;
-                border: 1px solid #777777;
-                border-left: 0px;
-                border-right: 0px;
-               
-              }
-
-
-        /*#endregion*/
-
-    /*#endregion*/
-    .joinex-cart-price{
-        border-radius: 6px;
-        border: 2px solid #777777;
-    }
-  /*#endregion*/
-  .joinex-cart-suggestions{
-      border-radius: 6px;
-      border: 2px solid palevioletred;
+    border-radius: 6px;
+    flex-direction: column; /* sắp xếp theo chiều dọc */
+    justify-content: space-between; /* đẩy phần tử ra 2 đầu theo chiều dọc */
+  }
+  .item-name {
+    /*TÊN SẢN PHẨM*/
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+  }
+  .item-attributes {
+    list-style: none; /* bỏ dấu chấm */
+    margin: 5px 0;
+    padding: 0;
+    display: flex; /* hiển thị ngang */
+    flex-wrap: wrap; /* xuống dòng nếu dài quá */
+    gap: 15px; /* khoảng cách giữa các thuộc tính */
   }
 
+  .item-attributes li {
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #64748b;
+  }
 
-}   
+  .item-info-button-container {
+    display: flex;
+  }
+
+  .image-button-remove-product-wrap {
+    display: flex;
+    align-items: center; /* căn giữa theo chiều dọc */
+
+    border-radius: 6px;
+  }
+  .image-button-remove-product-wrap img {
+    width: 31px;
+    height: 31px;
+  }
+
+  .item-price-qty-wrap {
+    /* KHỐI GIÁ VÀ SỐ LƯỢNG*/
+    display: flex;
+    gap: 110px;
+  }
+
+  .item-total {
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    width: 150px;
+  }
+
+  .quantity-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .qty-btn {
+    width: 60px;
+    height: 32px;
+    border: 1px solid #777777;
+    background: #f5f5f5;
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between; /* đẩy ra 2 đầu ngang */
+    align-items: center; /* căn giữa theo chiều dọc */
+  }
+  .minus {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .plus {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .qty-btn:hover {
+    background: #e0e0e0;
+  }
+
+  .qty-input {
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    width: 75px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid #777777;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  /*#endregion*/
+
+  /*#endregion*/
+
+  /*#region KHỐI TÓM TẮT GIÁ SẢN PHẨM TRONG ĐƠN HÀNG*/
+  .joinex-cart-price-container {
+    border-radius: 6px;
+    border: 2px solid #777777;
+  }
+  .joinex-cart-price-container h3 {
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+  }
+
+  .subtotal-price-container {
+    height: 60px;
+    border: 1px solid #777777;
+    background: #f5f5f5;
+    font-family: "Be Vietnam", sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: #000000;
+
+    display: flex;
+    justify-content: space-between; /* đẩy ra 2 đầu ngang */
+    align-items: center; /* căn giữa theo chiều dọc */
+  }
+  /*#endregion*/
+  .joinex-cart-suggestions {
+    border-radius: 6px;
+    border: 2px solid palevioletred;
+  }
+}
